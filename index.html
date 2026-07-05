@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agni Biswas — Systems Architect · Autonomy, Sensorics & Embedded</title>
+<meta name="description" content="Agni Biswas — a systems architect working across sensorics, embedded systems and autonomy. From air-quality sensor networks to full autonomy stacks for off-highway machines at Danfoss.">
+<meta name="author" content="Agni Biswas">
+<meta property="og:title" content="Agni Biswas — Systems Architect · Autonomy, Sensorics & Embedded">
+<meta property="og:description" content="A decade turning the physical world into signal, and signal into machines that act on their own.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="lens.css">
+</head>
+<body id="top">
+
+<!-- scroll progress -->
+<div class="progress" id="progress"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo" aria-label="Agni Biswas home">
+      <span class="logo-mark" aria-hidden="true"></span>
+      agni biswas
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#story">the arc</a>
+      <a href="#experience">experience</a>
+      <a href="#architecture">how i build</a>
+      <a href="#projects">work</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="container hero-inner">
+    <div class="hero-copy reveal">
+      <div class="hero-avatar"><img src="agni.jpg" alt="Agni Biswas" width="120" height="120" loading="eager"></div>
+      <p class="eyebrow"><span class="dot"></span> Sønderborg, Denmark · open to select senior &amp; architect roles</p>
+      <h1 class="hero-title">Agni&nbsp;Biswas</h1>
+      <p class="hero-role" id="roleRotator" aria-live="polite">Systems Architect</p>
+      <p class="hero-sub" id="heroSub">
+        I turn the physical world into signal, and signal into machines that decide for themselves.
+        A decade across <strong>sensorics</strong>, <strong>embedded systems</strong> and
+        <strong>autonomy</strong> — held together by one habit: solving the whole system, not one layer at a time.
+      </p>
+      <div class="lens-switch" id="lensSwitch" role="group" aria-label="Choose a lens to view this profile through"></div>
+      <div class="hero-cta">
+        <a href="#story" class="btn btn-primary">Read the story ↓</a>
+        <a href="https://www.linkedin.com/in/agnibiswas94/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+      </div>
+    </div>
+
+    <!-- animated autonomy pipeline -->
+    <div class="hero-diagram reveal" aria-hidden="true">
+      <svg id="pipeline" viewBox="0 0 340 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Autonomy pipeline: sense, model, decide, act">
+        <defs>
+          <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="var(--ember)"/>
+            <stop offset="1" stop-color="var(--signal)"/>
+          </linearGradient>
+        </defs>
+        <!-- connecting paths -->
+        <path class="flow" d="M170 78 L170 142" />
+        <path class="flow" d="M170 198 L170 262" />
+        <path class="flow" d="M170 318 L170 382" />
+        <!-- nodes -->
+        <g class="node" data-i="0">
+          <rect x="90" y="34" width="160" height="44" rx="10"/>
+          <text x="170" y="61">SENSE</text>
+        </g>
+        <g class="node" data-i="1">
+          <rect x="90" y="154" width="160" height="44" rx="10"/>
+          <text x="170" y="181">MODEL</text>
+        </g>
+        <g class="node" data-i="2">
+          <rect x="90" y="274" width="160" height="44" rx="10"/>
+          <text x="170" y="301">DECIDE</text>
+        </g>
+        <g class="node" data-i="3">
+          <rect x="90" y="378" width="160" height="42" rx="10" class="node-act"/>
+          <text x="170" y="404">ACT</text>
+        </g>
+      </svg>
+      <p class="diagram-caption"><span class="mono" id="pipelineCaption">// the loop i've spent a career building</span></p>
+    </div>
+  </div>
+  <a href="#story" class="scroll-hint" aria-label="Scroll down"><span></span></a>
+</section>
+
+<!-- ============ THE ARC / STORY ============ -->
+<section class="section story" id="story">
+  <div class="container">
+    <p class="section-tag"><span class="mono">01</span> — the through-line</p>
+    <h2 class="section-title" id="arcTitle">If you connect the dots, it&rsquo;s one idea.</h2>
+    <p class="lede" id="arcLede">
+      Every role looks like a jump on paper. It wasn&rsquo;t. Each step climbed one rung up the same
+      ladder: from <em>measuring</em> the world, to <em>understanding</em> it, to letting machines
+      <em>act</em> in it — safely, and on their own.
+    </p>
+
+    <ol class="arc">
+      <li class="arc-step reveal" id="arcStep1">
+        <span class="arc-num">01</span>
+        <div class="arc-body">
+          <h3 id="arcH1">Make the invisible measurable</h3>
+          <p class="arc-where" id="arcW1">Air-quality sensorics · Bangalore &amp; Munich · 2013–2021</p>
+          <p id="arcP1">
+            It started with air you couldn&rsquo;t see. I built multi-sensor platforms and fence-line
+            monitors that turned pollution into real-time data.
+          </p>
+          <blockquote class="pull" id="arcQ1" hidden></blockquote>
+        </div>
+      </li>
+      <li class="arc-step reveal" id="arcStep2">
+        <span class="arc-num">02</span>
+        <div class="arc-body">
+          <h3 id="arcH2">Own the device, end to end</h3>
+          <p class="arc-where" id="arcW2">Embedded systems &amp; firmware · Hawa Dawa, Munich · 2018–2021</p>
+          <p id="arcP2">
+            Sensors are nothing without the box around them.
+          </p>
+          <blockquote class="pull" id="arcQ2" hidden></blockquote>
+        </div>
+      </li>
+      <li class="arc-step reveal" id="arcStep3">
+        <span class="arc-num">03</span>
+        <div class="arc-body">
+          <h3 id="arcH3">Go back to sharpen the theory</h3>
+          <p class="arc-where" id="arcW3">MSc, Mechatronics / Embedded Systems · SDU, Denmark · 2021–2023</p>
+          <p id="arcP3">
+            To build machines that reason, I needed the maths underneath them.
+          </p>
+          <blockquote class="pull" id="arcQ3" hidden></blockquote>
+        </div>
+      </li>
+      <li class="arc-step reveal" id="arcStep4">
+        <span class="arc-num">04</span>
+        <div class="arc-body">
+          <h3 id="arcH4">Let the machine decide</h3>
+          <p class="arc-where" id="arcW4">Autonomy stacks · Danfoss Power Solutions · 2023–present</p>
+          <p id="arcP4">
+            Now the loop closes.
+          </p>
+          <blockquote class="pull" id="arcQ4" hidden></blockquote>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="section section-alt" id="experience">
+  <div class="container">
+    <p class="section-tag"><span class="mono">02</span> — the record</p>
+    <h2 class="section-title">Experience</h2>
+
+    <div class="timeline">
+
+      <article class="tl-item reveal">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>Autonomous Control Systems Engineer</h3>
+            <span class="tl-date">Jul 2023 — Present</span>
+          </div>
+          <p class="tl-company">Danfoss Power Solutions · Sønderborg, Denmark</p>
+          <ul class="tl-list">
+            <li>Architect scalable autonomy solutions for off-highway machines — from simulation through production deployment.</li>
+            <li>Lead simulation development to align virtual environments (digital twins) with real machine behaviour.</li>
+            <li>Own full-stack autonomous applications: software design, system architecture, validation, deployment.</li>
+            <li>Presented Danfoss autonomy at HPKON 2025 (Izmir) and on an industry panel at iVT Expo, Cologne.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">Systems Architecture</span><span class="tag">C++</span><span class="tag">Python</span><span class="tag">Digital Twins</span><span class="tag">CI/CD</span><span class="tag">Safety</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tl-item reveal">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>Hardware Developer</h3>
+            <span class="tl-date">Apr 2018 — Aug 2021</span>
+          </div>
+          <p class="tl-company">Hawa Dawa · Munich, Germany</p>
+          <ul class="tl-list">
+            <li>Built real-time air-quality data devices end to end, from concept to field.</li>
+            <li>Schematic and multilayer PCB design; owned embedded architecture and firmware.</li>
+            <li>Mechanical design, analysis and prototyping for devices and peripherals.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">Embedded</span><span class="tag">PCB Design</span><span class="tag">Firmware</span><span class="tag">Sensorics</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tl-item reveal">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>Embedded Systems Engineer</h3>
+            <span class="tl-date">Apr 2017 — Feb 2018</span>
+          </div>
+          <p class="tl-company">iFuture Robotics · Bengaluru, India</p>
+          <ul class="tl-list">
+            <li>Led the control-systems research group as group lead and liaison.</li>
+            <li>Drove POC development for the &ldquo;Ark Sorter&rdquo; and an AGV base platform, with SAP Labs.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">Robotics</span><span class="tag">C / C++</span><span class="tag">Controls</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="tl-item reveal">
+        <div class="tl-marker"></div>
+        <div class="tl-card">
+          <div class="tl-head">
+            <h3>Hardware Development Manager</h3>
+            <span class="tl-date">Jan 2016 — May 2017</span>
+          </div>
+          <p class="tl-company">TerraSense Labs · Bengaluru, India</p>
+          <ul class="tl-list">
+            <li>Led an R&amp;D team building a multi-sensor platform for real-time air-quality monitoring.</li>
+            <li>Designed &ldquo;Jellyfish,&rdquo; a real-time fence-line monitor, plus an outdoor adapter for indoor AQ units.</li>
+            <li>Work fed the widely-covered &ldquo;Breathe Bengaluru&rdquo; traffic-emissions study.</li>
+          </ul>
+          <div class="tag-row">
+            <span class="tag">Sensor Networks</span><span class="tag">R&amp;D Lead</span><span class="tag">Hardware</span>
+          </div>
+        </div>
+      </article>
+
+      <details class="tl-early reveal">
+        <summary><span class="mono">▸</span> Early career &mdash; 2013–2016, 5 roles</summary>
+        <div class="tl-early-grid">
+          <div class="tl-early-item">
+            <span class="tl-early-role">Product Designer — Yostra</span>
+            <span class="tl-early-date">Feb – Mar 2016</span>
+            <p>Industrial design for a diabetic peripheral-neuropathy scanning device.</p>
+          </div>
+          <div class="tl-early-item">
+            <span class="tl-early-role">Hardware Developer — TerraSense Labs</span>
+            <span class="tl-early-date">Aug – Dec 2015</span>
+            <p>Sensor calibration and hardware development, Bangalore.</p>
+          </div>
+          <div class="tl-early-item">
+            <span class="tl-early-role">Intern — Workbench Projects</span>
+            <span class="tl-early-date">May – Aug 2015</span>
+            <p>Built &ldquo;Minerva&rsquo;ton,&rdquo; a low-cost Arduino water-level monitor for urban gardening.</p>
+          </div>
+          <div class="tl-early-item">
+            <span class="tl-early-role">Research Intern — Sirena Technologies</span>
+            <span class="tl-early-date">May – Jul 2014</span>
+            <p>Sensorics and electronics for a humanoid platform; walking-gait prototyping.</p>
+          </div>
+          <div class="tl-early-item">
+            <span class="tl-early-role">Engineering Intern, R&amp;D — Project Parivartan</span>
+            <span class="tl-early-date">Feb – Aug 2013</span>
+            <p>Sensor design and industrial-automation prototyping (Arduino, Multisim, CATIA V5).</p>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARCHITECTURE / HOW I BUILD ============ -->
+<section class="section" id="architecture">
+  <div class="container">
+    <p class="section-tag"><span class="mono">03</span> — how i build</p>
+    <h2 class="section-title" id="buildTitle">Autonomy is four layers held to one contract.</h2>
+    <p class="lede" id="buildLede">
+      An autonomous machine isn&rsquo;t one clever model — it&rsquo;s a stack where every layer has to trust
+      the one below it. This is how I reason about the system. Hover a layer to see what lives there.
+    </p>
+
+    <div class="arch">
+      <div class="arch-stack" id="archStack">
+        <button class="arch-layer" data-layer="perception">
+          <span class="arch-layer-name">Perception</span>
+          <span class="arch-layer-hint">what the machine believes is true</span>
+        </button>
+        <button class="arch-layer" data-layer="controls">
+          <span class="arch-layer-name">Controls</span>
+          <span class="arch-layer-hint">turning belief into motion</span>
+        </button>
+        <button class="arch-layer" data-layer="safety">
+          <span class="arch-layer-name">Safety &amp; Fail-safe</span>
+          <span class="arch-layer-hint">the contract that overrides everything</span>
+        </button>
+        <button class="arch-layer" data-layer="sim">
+          <span class="arch-layer-name">Simulation / Digital Twin</span>
+          <span class="arch-layer-hint">where it&rsquo;s proven before it&rsquo;s real</span>
+        </button>
+      </div>
+      <div class="arch-detail" id="archDetail">
+        <p class="arch-detail-kicker mono">// select a layer</p>
+        <h3 class="arch-detail-title">The whole system, or nothing.</h3>
+        <p class="arch-detail-text">
+          I don&rsquo;t optimise layers in isolation — a perfect controller on a wrong belief is still a
+          crash. My job is the seams between these layers: the interfaces, the assumptions, and the
+          moment one layer has to hand control to another. Pick a layer to see how I think about it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS ============ -->
+<section class="section section-alt" id="projects">
+  <div class="container">
+    <p class="section-tag"><span class="mono">04</span> — selected work</p>
+    <h2 class="section-title">Projects &amp; Publications</h2>
+
+    <div class="card-grid">
+      <article class="proj-card reveal" tabindex="0">
+        <span class="proj-kind">publication</span>
+        <h3>Smart Collar</h3>
+        <span class="proj-meta">Intl. Journal of Advanced Research · 2016</span>
+        <p>A short-range Zigbee triangulation system for animal monitoring — broadcasts EEG/ECG/EMG state and can trigger an SOS, aimed at anti-poaching and welfare tracking.</p>
+        <span class="proj-tags"><span class="tag">Zigbee</span><span class="tag">Biosignals</span></span>
+      </article>
+
+      <article class="proj-card reveal" tabindex="0">
+        <span class="proj-kind">publication</span>
+        <h3>Farming Tech for India</h3>
+        <span class="proj-meta">IEEE TIAR&rsquo;15 · 2015</span>
+        <p>DIY sensorics that add to a farmer&rsquo;s know-how without replacing it — affordable soil-moisture and nutrient monitoring for smallholders.</p>
+        <span class="proj-tags"><span class="tag">AgriTech</span><span class="tag">Sensors</span></span>
+      </article>
+
+      <article class="proj-card reveal" tabindex="0">
+        <span class="proj-kind">project</span>
+        <h3>Intelligent Retainer</h3>
+        <span class="proj-meta">MIT Manipal · 2016</span>
+        <p>A connected orthodontic retainer that tracks wear time — helping patients plan treatment costs and letting clinicians verify therapy compliance.</p>
+        <span class="proj-tags"><span class="tag">Connected Device</span><span class="tag">Health</span></span>
+      </article>
+
+      <article class="proj-card reveal" tabindex="0">
+        <span class="proj-kind">project</span>
+        <h3>The Forge — &ldquo;Vidyut&rdquo;</h3>
+        <span class="proj-meta">MIT Manipal · 2015–16</span>
+        <p>A low-cost, customizable self-defense platform explored as an alternative to traditional civilian and law-enforcement tools.</p>
+        <span class="proj-tags"><span class="tag">Product Design</span><span class="tag">Prototyping</span></span>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SKILLS + EDUCATION ============ -->
+<section class="section" id="skills">
+  <div class="container">
+    <p class="section-tag"><span class="mono">05</span> — the toolkit</p>
+    <h2 class="section-title">Skills &amp; Foundation</h2>
+
+    <div class="skills-grid">
+      <div class="skill-group reveal">
+        <h4>Autonomy &amp; Systems</h4>
+        <div class="tag-row">
+          <span class="tag">Systems Engineering</span><span class="tag">Software Architecture</span><span class="tag">Digital Twins</span><span class="tag">Physics Simulation</span><span class="tag">Control Systems</span><span class="tag">CI/CD</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h4>Embedded &amp; Hardware</h4>
+        <div class="tag-row">
+          <span class="tag">Embedded Devices</span><span class="tag">Sensorics</span><span class="tag">Electronics</span><span class="tag">Mechatronics</span><span class="tag">PCB Design</span><span class="tag">Firmware</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h4>Languages</h4>
+        <div class="tag-row">
+          <span class="tag">C++</span><span class="tag">C</span><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">Bash</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <h4>Design &amp; Prototyping</h4>
+        <div class="tag-row">
+          <span class="tag">CATIA</span><span class="tag">Ansys</span><span class="tag">Solid Edge</span><span class="tag">Keyshot</span><span class="tag">3D Printing</span><span class="tag">Laser Cutting</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <h3>MSc, Mechatronics — Embedded Systems</h3>
+        <span class="proj-meta">University of Southern Denmark (SDU) · 2021–2023</span>
+      </div>
+      <div class="edu-card reveal">
+        <h3>BEng, Mechatronics, Robotics &amp; Automation</h3>
+        <span class="proj-meta">Manipal Institute of Technology · 2012–2016</span>
+      </div>
+      <div class="edu-card reveal">
+        <h3>C++ Nanodegree · Udacity</h3>
+        <span class="proj-meta">2021</span>
+      </div>
+      <div class="edu-card reveal">
+        <h3>S.O.L.I.D. Principles · LinkedIn Learning</h3>
+        <span class="proj-meta">2021</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section section-alt contact" id="contact">
+  <div class="container contact-inner">
+    <p class="section-tag"><span class="mono">06</span> — let&rsquo;s build</p>
+    <h2 class="section-title">Where does the loop go next?</h2>
+    <p class="lede" id="contactLede">
+      I&rsquo;m open to senior and architect roles in autonomy, sensorics and embedded systems.
+      If you&rsquo;re building machines that have to work in the real world, let&rsquo;s talk.
+    </p>
+    <div class="hero-cta">
+      <button class="btn btn-primary" id="copyEmailBtn" data-email="agnibiswasranchi@gmail.com">Copy email</button>
+      <a href="mailto:agnibiswasranchi@gmail.com" class="btn btn-ghost">Send email ↗</a>
+      <a href="https://www.linkedin.com/in/agnibiswas94/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="footer-name">Agni Biswas</span>
+    <span class="footer-meta">Systems Architect · Autonomy &amp; Embedded · © <span id="year">

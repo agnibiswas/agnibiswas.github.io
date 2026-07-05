@@ -1,0 +1,87 @@
+/* =========================================================
+   Lens switcher + per-lens accents
+   Layered on top of style.css — uses the same tokens.
+   ========================================================= */
+
+.lens-switch{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:9px;
+  margin:22px 0 4px;
+}
+.lens-label{
+  font-size:.72rem;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--dim);
+  margin-right:2px;
+}
+.lens-btn{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.82rem;
+  color:var(--muted);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:7px 15px;
+  cursor:pointer;
+  transition:color .25s var(--ease),border-color .25s var(--ease),
+             background .25s var(--ease),transform .12s var(--ease);
+}
+.lens-btn:hover{
+  color:var(--text);
+  border-color:var(--ember);
+  transform:translateY(-1px);
+}
+.lens-btn:focus-visible{
+  outline:2px solid var(--ember);
+  outline-offset:2px;
+}
+.lens-btn.active{
+  color:var(--bg);
+  background:var(--ember);
+  border-color:var(--ember);
+  font-weight:600;
+  box-shadow:0 0 18px -4px var(--ember);
+}
+
+/* accent transitions when a lens switches the --ember token */
+.hero-title,.section-title,.arc-num,em,.pull cite,
+.arch-layer.active,.tag,.logo-mark{
+  transition:color .4s var(--ease),background .4s var(--ease),
+             border-color .4s var(--ease);
+}
+
+/* the climax step of the current lens gets emphasis */
+.arc-step{
+  transition:border-color .4s var(--ease);
+  border-left:2px solid transparent;
+  padding-left:0;
+  margin-left:0;
+}
+.arc-step.climax .arc-body{
+  position:relative;
+}
+.arc-step.climax .arc-num{
+  color:var(--ember);
+  text-shadow:0 0 20px var(--ember);
+}
+.arc-step.climax h3{
+  color:var(--ember-soft);
+}
+
+/* hidden pull-quotes shouldn't reserve space */
+.pull[hidden]{display:none}
+
+/* subtle content-swap fade when lens changes */
+#heroSub,#arcTitle,#arcLede,#buildTitle,#buildLede,#contactLede,
+.arc-body h3,.arc-body .arc-where,.arc-body p{
+  transition:opacity .3s var(--ease);
+}
+
+@media (max-width:560px){
+  .lens-switch{gap:7px}
+  .lens-btn{font-size:.76rem;padding:6px 12px}
+  .lens-label{width:100%;margin-bottom:2px}
+}
