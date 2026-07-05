@@ -357,4 +357,14 @@ em{font-style:normal;color:var(--ember-soft)}
   .nav-links{
     position:fixed;top:60px;right:0;left:0;flex-direction:column;gap:0;
     background:rgba(10,11,14,.97);backdrop-filter:blur(12px);
-    border-bot
+    border-bottom:1px solid var(--line);
+    max-height:0;overflow:hidden;transition:max-height .35s var(--ease);
+  }
+  .nav-links.open{max-height:340px}
+  .nav-links a{padding:16px 26px;border-top:1px solid var(--line-soft);font-size:1rem}
+  .nav-toggle{display:flex}
+  .section{padding:80px 0}
+  .arc-step{grid-template-columns:44px 1fr;gap:16px}
+  .arc-num{width:44px;height:44px}
+  .arc::before{left:21px}
+}
