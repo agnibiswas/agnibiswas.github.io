@@ -55,7 +55,15 @@
       },
       { threshold: 0.14, rootMargin: '0px 0px -8% 0px' }
     );
-    revealEls.forEach((el) => io.observe(el));
+    revealEls.forEach((el) => {
+      // reveal immediately if already in view on load; observe the rest for scroll
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        el.classList.add('in');
+      } else {
+        io.observe(el);
+      }
+    });
   } else {
     revealEls.forEach((el) => el.classList.add('in'));
   }
