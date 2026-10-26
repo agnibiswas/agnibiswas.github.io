@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="referrer" content="no-referrer">
+<title>signal</title>
+<style>
+:root{--bg:#0a0b0e;--panel:#12151b;--line:#232833;--text:#f2efe9;--muted:#9aa1ad;--dim:#626a78;--ember:#ff6a2b;--signal:#35e0c0;--bad:#ff5d5d}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;display:flex;align-items:center;justify-content:center;padding:16px}
+form{width:100%;max-width:340px;display:flex;flex-direction:column;gap:12px}
+.k{font-size:12px;color:var(--dim);letter-spacing:.08em}
+.k b{color:var(--ember);font-weight:500}
+input[type=password]{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--text);font:inherit;font-size:15px;padding:11px 12px;outline:none}
+input[type=password]:focus{border-color:var(--signal)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:var(--muted)}
+label{display:flex;align-items:center;gap:6px;cursor:pointer}
+button{background:var(--text);color:var(--bg);border:0;border-radius:8px;font:inherit;font-size:13px;font-weight:600;padding:9px 16px;cursor:pointer}
+button:disabled{opacity:.5;cursor:wait}
+#msg{font-size:12px;min-height:16px;color:var(--dim)}
+#msg.bad{color:var(--bad)}
+a{color:var(--dim);font-size:12px;text-decoration:none}
+a:hover{color:var(--muted)}
+</style>
+</head>
+<body>
+<form id="gate" autocomplete="off">
+  <p class="k">// <b>carrier lost</b>. re-acquire:</p>
+  <input type="password" id="pw" aria-label="Passphrase" autofocus required>
+  <div class="row">
+    <label><input type="checkbox" id="keep"> keep on this device</label>
+    <button type="submit" id="go">open</button>
+  </div>
+  <p id="msg" aria-live="polite"></p>
+  <a href="/">&larr; back</a>
+</form>
+<script>
+(function () {
+  'use strict';
+  // Sealed by tools/seal_board.py : AES-256-GCM, key = PBKDF2-SHA256(passphrase, salt, iter).
+  // The page and the blob are public; only the passphrase opens it.
+  var BLOB = 'board.enc.json';
+  var STORE = 'carl.k';
+  var form = document.getElementById('gate');
+  var pw = document.getElementById('pw');
+  var keep = document.getElementById('keep');
+  var go = document.getElementById('go');
+  var msg = document.getElementById('msg');
+
+  function b64(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+  function say(t, bad) { msg.textContent = t; msg.className = bad ? 'bad' : ''; }
+  function store(get, val) {
+    try {
+      if (get) return localStorage.getItem(STORE);
+      if (val === null) localStorage.removeItem(STORE); else localStorage.setItem(STORE, val);
+    } catch (e) { return null; }
+  }
+
+  var blobP = fetch(BLOB, { cache: 'no-store' }).then(function (r) {
+    if (!r.ok) throw new Error(r.status === 404 ? 'nothing sealed yet' : 'fetch failed (' + r.status + ')');
+    return r.json();
+  });
+
+  function deriveRaw(pass, blob) {
+    var enc = new TextEncoder();
+    return crypto.subtle.importKey('raw', enc.encode(pass), 'PBKDF2', false, ['deriveBits'])
+      .then(function (base) {
+        return crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: b64(blob.salt), iterations: blob.iter }, base, 256);
+      });
+  }
+
+  function open(raw, blob) {
+    return crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt'])
+      .then(function (key) { return crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(blob.iv) }, key, b64(blob.ct)); })
+      .then(function (pt) {
+        var html = new TextDecoder().decode(pt);
+        document.open(); document.write(html); document.close();
+      });
+  }
+
+  function rawToStr(raw) { return btoa(String.fromCharCode.apply(null, new Uint8Array(raw))); }
+
+  // Remembered key is tied to the salt, so it stops working when the passphrase is rotated.
+  var remembered = store(true);
+  if (remembered) {
+    blobP.then(function (blob) {
+      var parts = remembered.split('.');
+      if (parts[0] !== blob.salt) throw new Error('stale');
+      return open(b64(parts[1]), blob);
+    }).catch(function () { store(false, null); });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    go.disabled = true; say('deriving key…');
+    blobP.then(function (blob) {
+      return deriveRaw(pw.value, blob).then(function (raw) {
+        return open(raw, blob).then(function () {
+          if (keep.checked) store(false, blob.salt + '.' + rawToStr(raw));
+        });
+      });
+    }).catch(function (err) {
+      go.disabled = false;
+      say(err && err.message === 'nothing sealed yet' ? '// nothing sealed yet' : '// no lock', true);
+      pw.select();
+    });
+  });
+})();
+</script>
+</body>
+</html>

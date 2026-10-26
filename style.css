@@ -334,7 +334,7 @@ em{font-style:normal;color:var(--ember-soft)}
 /* ---------- footer ---------- */
 .footer{border-top:1px solid var(--line-soft);padding:34px 0}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.footer-name{font-family:'Space Grotesk',sans-serif;font-weight:600}
+.footer-name{font-family:'Space Grotesk',sans-serif;font-weight:600;user-select:none;-webkit-user-select:none}
 .footer-meta{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--dim)}
 
 /* ---------- reveal animation ---------- */

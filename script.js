@@ -254,3 +254,24 @@
     });
   }
 })();
+
+/* ---------- knock ---------- */
+// Five quick clicks on the footer name, or typing "carl" anywhere outside a field.
+(function () {
+  var dest = 'carl/';
+  var name = document.querySelector('.footer-name');
+  var n = 0, t = 0;
+  if (name) name.addEventListener('click', function () {
+    var now = Date.now();
+    n = now - t < 600 ? n + 1 : 1; t = now;
+    if (n >= 5) location.href = dest;
+  });
+  var buf = '';
+  document.addEventListener('keydown', function (e) {
+    var el = e.target;
+    if (e.ctrlKey || e.metaKey || e.altKey || (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)))) return;
+    if (e.key.length !== 1) return;
+    buf = (buf + e.key.toLowerCase()).slice(-4);
+    if (buf === 'carl') location.href = dest;
+  });
+})();
