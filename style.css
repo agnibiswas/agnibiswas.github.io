@@ -173,6 +173,19 @@ em{font-style:normal;color:var(--ember-soft)}
 #pipeline .node-act{fill:#101a18 !important}
 #pipeline .signal{fill:var(--signal);filter:drop-shadow(0 0 6px var(--signal))}
 .diagram-caption{margin-top:16px;color:var(--dim);font-size:.8rem}
+/* knock: tap feedback (identical for every node) and the ignition sequence */
+#pipeline .node{-webkit-tap-highlight-color:transparent}
+#pipeline .node.tap rect{animation:tap .35s var(--ease)}
+@keyframes tap{50%{stroke:var(--muted)}}
+#pipeline.ignite .flow{stroke:var(--signal-dim);animation:dash .35s linear infinite reverse}
+#pipeline .feedback{fill:none;stroke:var(--signal);stroke-width:2;filter:drop-shadow(0 0 6px var(--signal));transition:stroke-dashoffset 1.1s var(--ease)}
+#pipeline .feedback.draw{stroke-dashoffset:0 !important}
+#pipeline .node.armed rect{stroke:var(--signal);fill:#0f1c1a;filter:drop-shadow(0 0 12px rgba(53,224,192,.55))}
+#pipeline .node.armed text{fill:var(--signal)}
+.diagram-caption .acquired{color:var(--signal)}
+.knock-veil{position:fixed;inset:0;z-index:200;pointer-events:none;opacity:0;transition:opacity .6s var(--ease);
+  background:radial-gradient(circle at 50% 40%,rgba(53,224,192,.18),var(--bg) 60%)}
+.knock-veil.on{opacity:1}
 
 .scroll-hint{
   position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;
@@ -334,7 +347,7 @@ em{font-style:normal;color:var(--ember-soft)}
 /* ---------- footer ---------- */
 .footer{border-top:1px solid var(--line-soft);padding:34px 0}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.footer-name{font-family:'Space Grotesk',sans-serif;font-weight:600;user-select:none;-webkit-user-select:none}
+.footer-name{font-family:'Space Grotesk',sans-serif;font-weight:600}
 .footer-meta{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--dim)}
 
 /* ---------- reveal animation ---------- */

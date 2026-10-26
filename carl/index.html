@@ -63,6 +63,7 @@ a:hover{color:var(--muted)}
     if (!r.ok) throw new Error(r.status === 404 ? 'nothing sealed yet' : 'fetch failed (' + r.status + ')');
     return r.json();
   });
+  blobP.catch(function () {}); // reported on submit, not before
 
   function deriveRaw(pass, blob) {
     var enc = new TextEncoder();

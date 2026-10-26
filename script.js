@@ -151,6 +151,11 @@
     light(0);
 
     function frame() {
+      if (svg.classList.contains('ignite')) {
+        // the knock owns the diagram now
+        dot.style.opacity = '0';
+        return;
+      }
       if (seg < flows.length) {
         const path = flows[seg];
         const len = path.getTotalLength();
@@ -256,22 +261,79 @@
 })();
 
 /* ---------- knock ---------- */
-// Five quick clicks on the footer name, or typing "carl" anywhere outside a field.
+// Run the loop backwards: click ACT, DECIDE, MODEL, SENSE in the hero diagram (feedback closes
+// the loop). Typing "carl" anywhere outside a field also works. Both land on carl/.
 (function () {
   var dest = 'carl/';
-  var name = document.querySelector('.footer-name');
-  var n = 0, t = 0;
-  if (name) name.addEventListener('click', function () {
-    var now = Date.now();
-    n = now - t < 600 ? n + 1 : 1; t = now;
-    if (n >= 5) location.href = dest;
-  });
+  var NS = 'http://www.w3.org/2000/svg';
+  var svg = document.getElementById('pipeline');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var gone = false;
+
+  function ignite() {
+    if (gone) return; gone = true;
+    if (reduce || !svg) { location.href = dest; return; }
+    svg.classList.add('ignite');
+    var nodes = Array.prototype.slice.call(svg.querySelectorAll('.node'));
+    nodes.forEach(function (n) { n.classList.remove('lit', 'tap'); });
+
+    // feedback arc from ACT back up to SENSE, drawn on
+    var arc = document.createElementNS(NS, 'path');
+    arc.setAttribute('d', 'M250 399 C 326 399, 326 56, 250 56');
+    arc.setAttribute('class', 'feedback');
+    svg.insertBefore(arc, svg.firstChild);
+    var len = arc.getTotalLength();
+    arc.style.strokeDasharray = len;
+    arc.style.strokeDashoffset = len;
+    requestAnimationFrame(function () { arc.classList.add('draw'); });
+
+    // nodes light bottom to top as the signal climbs the arc
+    nodes.slice().reverse().forEach(function (n, k) {
+      setTimeout(function () { n.classList.add('armed'); }, 250 + k * 170);
+    });
+
+    // caption types out
+    var cap = document.getElementById('pipelineCaption');
+    if (cap) {
+      var msg = '// loop closed. carrier acquired.', c = 0;
+      cap.textContent = '';
+      cap.classList.add('acquired');
+      (function type() {
+        cap.textContent = msg.slice(0, ++c);
+        if (c < msg.length) setTimeout(type, 28);
+      })();
+    }
+
+    setTimeout(function () {
+      var veil = document.createElement('div');
+      veil.className = 'knock-veil';
+      document.body.appendChild(veil);
+      requestAnimationFrame(function () { veil.classList.add('on'); });
+      setTimeout(function () { location.href = dest; }, 650);
+    }, 1500);
+  }
+
+  if (svg) {
+    var want = [3, 2, 1, 0], pos = 0, last = 0;
+    Array.prototype.forEach.call(svg.querySelectorAll('.node'), function (n) {
+      n.addEventListener('click', function () {
+        var i = +n.getAttribute('data-i'), now = Date.now();
+        if (now - last > 2500) pos = 0;          // too slow: start over
+        last = now;
+        // every node answers a tap the same way, so the sequence gives nothing away
+        n.classList.remove('tap'); void n.getBBox(); n.classList.add('tap');
+        pos = i === want[pos] ? pos + 1 : (i === want[0] ? 1 : 0);
+        if (pos === want.length) ignite();
+      });
+    });
+  }
+
   var buf = '';
   document.addEventListener('keydown', function (e) {
     var el = e.target;
     if (e.ctrlKey || e.metaKey || e.altKey || (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)))) return;
     if (e.key.length !== 1) return;
     buf = (buf + e.key.toLowerCase()).slice(-4);
-    if (buf === 'carl') location.href = dest;
+    if (buf === 'carl') ignite();
   });
 })();
